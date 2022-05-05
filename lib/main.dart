@@ -13,23 +13,8 @@ class Home extends StatelessWidget {
           title: Text('Hello 000 '),
           centerTitle: true,
           backgroundColor: Colors.lightGreen),
-      body: Center(
-          child: Text(
-        'Hello 123',
-        style: TextStyle(
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 0.8,
-            fontFamily: 'Lora',
-            color: Colors.grey[600]),
-      )),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.amber,
-        onPressed: () {
-          // Respond to button press
-        },
-        child: Text('Click '),
-      ),
+      body: Image.asset(
+          "assets/beauty-1.jpg"),
     );
   }
 }
