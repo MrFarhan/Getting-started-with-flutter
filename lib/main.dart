@@ -8,13 +8,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: Text('Hello 000 '),
-          centerTitle: true,
-          backgroundColor: Colors.lightGreen),
-      body: Image.asset(
-          "assets/beauty-1.jpg"),
-    );
+    return Text("Cleared app");
   }
 }
