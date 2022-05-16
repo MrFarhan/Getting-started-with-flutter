@@ -12,6 +12,9 @@ class Quotes extends StatefulWidget {
 }
 
 class _QuotesState extends State<Quotes> {
+  Widget quoteTemplate(quote) {
+    return QuoteCard(quote);
+  }
 
   List<Quote> quotes = [
     Quote(
@@ -41,10 +44,37 @@ class _QuotesState extends State<Quotes> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: quotes
-                .map((quote) => Text('${quote.text} ' '-' ' ${quote.author}'))
-                .toList(),
+            children: quotes.map((quote) => quoteTemplate(quote)).toList(),
           ),
         ));
+  }
+}
+
+class QuoteCard extends StatelessWidget {
+  final Quote quote;
+  QuoteCard(this.quote);
+
+  // const QuoteCard({
+  //   Key? key,
+  // }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text("quote.text"),
+            SizedBox(height: 10.0),
+            Text(
+              "quote.author",
+              style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
