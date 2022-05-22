@@ -1,29 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:myapp/views/login_view.dart';
-// import 'package:flutter/services.dart';
-import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(MaterialApp(
-    title: 'My Notes',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-    ),
-    home: const RegisterView(),
-  ));
-}
+import '../firebase_options.dart';
 
-class RegisterView extends StatefulWidget {
-  const RegisterView({Key? key}) : super(key: key);
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
 
   @override
-  _RegisterViewState createState() => _RegisterViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -44,7 +32,7 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Register")),
+      appBar: AppBar(title: Text("Login")),
       body: FutureBuilder(
         future: Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform,
@@ -77,13 +65,16 @@ class _RegisterViewState extends State<RegisterView> {
                         final password = _password.text;
                         try {
                           await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
+                              .signInWithEmailAndPassword(
                                   email: email, password: password);
-                        } on FirebaseAuthException catch (e) {
+                        }on FirebaseAuthException catch(e){
                           print(e.code);
+                        } 
+                        catch (e) {
+                          print(e);
                         }
                       },
-                      child: Title(color: Colors.pink, child: Text("Register")),
+                      child: Title(color: Colors.pink, child: Text("Login")),
                     )
                   ],
                 ),
