@@ -31,58 +31,40 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Login")),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _email,
-                      decoration: InputDecoration(hintText: "Type email here"),
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    TextField(
-                      controller: _password,
-                      obscureText: true,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      decoration:
-                          InputDecoration(hintText: "Type Password here"),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        final email = _email.text;
-                        final password = _password.text;
-                        try {
-                          await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                                  email: email, password: password);
-                        }on FirebaseAuthException catch(e){
-                          print(e.code);
-                        } 
-                        catch (e) {
-                          print(e);
-                        }
-                      },
-                      child: Title(color: Colors.pink, child: Text("Login")),
-                    )
-                  ],
-                ),
-              );
-            default:
-              return Center(child: Text("Loading..."));
-          }
-        },
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          TextField(
+            controller: _email,
+            decoration: InputDecoration(hintText: "Type email here"),
+            enableSuggestions: false,
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
+          ),
+          TextField(
+            controller: _password,
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
+            decoration: InputDecoration(hintText: "Type Password here"),
+          ),
+          TextButton(
+            onPressed: () async {
+              final email = _email.text;
+              final password = _password.text;
+              try {
+                await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: email, password: password);
+              } on FirebaseAuthException catch (e) {
+                print(e.code);
+              } catch (e) {
+                print(e);
+              }
+            },
+            child: Title(color: Colors.pink, child: Text("Login")),
+          )
+        ],
       ),
     );
   }
