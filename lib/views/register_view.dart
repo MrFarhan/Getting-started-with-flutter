@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/constants/routes.dart';
+import 'package:myapp/utilities/show_error_dialog.dart';
 
 // import '../firebase_options.dart';
 
@@ -62,11 +63,17 @@ class _RegisterViewState extends State<RegisterView> {
                   await FirebaseAuth.instance.createUserWithEmailAndPassword(
                       email: email, password: password);
                 } on FirebaseAuthException catch (e) {
-                  if (e.code == "user-not-found") {
-                    log("User not found");
-                  } else if (e.code == "wrong-password") {
-                    log("Wrong password");
+                  if (e.code == "weak-password") {
+                    await showErrorDialog(context, "Weak Password");
+                  } else if (e.code == "email-already-in-use") {
+                    await showErrorDialog(context, "Email is already in use");
+                  } else if (e.code == "invalid-email") {
+                    await showErrorDialog(context, "Invalid email is entered");
+                  } else {
+                    await showErrorDialog(context, "Error: ${e.code}");
                   }
+                } catch (e) {
+                  await showErrorDialog(context, e.toString());
                 }
               },
               child: Title(color: Colors.pink, child: Text("Register")),
