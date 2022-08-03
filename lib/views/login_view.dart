@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:myapp/constants/routes.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
-import '../firebase_options.dart';
+// import '../firebase_options.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -57,11 +60,15 @@ class _LoginViewState extends State<LoginView> {
                 final password = _password.text;
                 try {
                   await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: email, password: password);
+                    email: email,
+                    password: password,
+                  );
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, notesRoute, (route) => false);
                 } on FirebaseAuthException catch (e) {
-                  print(e.code);
+                  log(e.code);
                 } catch (e) {
-                  print(e);
+                  log(e.toString());
                 }
               },
               child: Title(color: Colors.pink, child: Text("Login")),
@@ -69,7 +76,7 @@ class _LoginViewState extends State<LoginView> {
             TextButton(
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/register/', (route) => false);
+                    .pushNamedAndRemoveUntil(registerRoute, (route) => false);
               },
               child: Title(
                   color: Colors.amber,
