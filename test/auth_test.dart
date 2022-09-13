@@ -1,6 +1,5 @@
 import 'package:myapp/services/auth/auth_exception.dart';
 import 'package:myapp/services/auth/auth_provider.dart';
-import 'package:myapp/services/auth/auth_service.dart';
 import 'package:myapp/services/auth/auth_user.dart';
 import 'package:test/test.dart';
 
@@ -116,7 +115,7 @@ class MockAuthProvider implements AuthProvider {
   Future<void> sendEmailVerification() async {
     if (!isInitialized) throw NotInitializedException();
     final user = _user;
-    if (_user == null) throw UserNotFoundAuthException();
+    if (user == null) throw UserNotFoundAuthException();
     const newUser = AuthUser(isEmailVerified: true);
     _user = newUser;
   }
