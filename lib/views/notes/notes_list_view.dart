@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/services/cloud/cloud_note.dart';
-import 'package:myapp/services/crud/notes_service.dart';
 
 import '../../utilities/dialogs/delete_dialog.dart';
 
